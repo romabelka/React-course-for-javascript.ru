@@ -5,12 +5,29 @@ class Article extends Component {
 
     }
 
+    constructor(...args) {
+        super(...args)
+        this.state = {
+            isOpen: false
+        }
+    }
+
     render() {
+        const { text, title } = this.props.article
+        const body = this.state.isOpen ? <section>{text}</section> : null
         return (
             <div>
-                <h1>Hello world</h1>
+                <a href = "#" onClick = {this.handelClick}>{title}</a>
+                {body}
             </div>
         )
+    }
+
+    handelClick = (ev) => {
+        ev.preventDefault()
+        this.setState({
+            isOpen: !this.state.isOpen
+        })
     }
 }
 
