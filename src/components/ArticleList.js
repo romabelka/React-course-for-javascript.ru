@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import {findDOMNode} from 'react-dom'
 import Article from './Article'
 
 class ArticleList extends Component {
@@ -9,12 +10,19 @@ class ArticleList extends Component {
     render() {
         const { articles } = this.props
         if (!articles.length) return <h3>No articles</h3>
-        const articleItems = articles.map((article) => <li key = {article.id}><Article article = {article}/></li>)
+        const articleItems = articles.map((article) => <li key = {article.id}>
+            <Article article = {article} ref= {article.id.toString()} />
+        </li>)
         return (
             <div>
                 <ul>{articleItems}</ul>
             </div>
         )
+    }
+
+    componentDidMount() {
+        console.log("I'm mounted")
+        console.log(findDOMNode(this.refs["1"]))
     }
 }
 
