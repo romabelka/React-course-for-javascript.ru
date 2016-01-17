@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react'
 import ArticleList from './ArticleList'
-/*
 import linkedState from 'react-addons-linked-state-mixin'
 
 const Container = React.createClass({
@@ -19,14 +18,14 @@ const Container = React.createClass({
     render() {
         return (
             <div>
-                <input valueLink = "inputVal"/>
+                <input valueLink = {this.linkState("inputVal")}/>
                 <ArticleList articles = {this.props.articles} />
             </div>
         )
     }
 })
 
-*/
+/*
 class Container extends Component {
     static propTypes = {
         articles: PropTypes.array.isRequired
@@ -54,5 +53,6 @@ class Container extends Component {
         })
     }
 }
+*/
 
 export default Container

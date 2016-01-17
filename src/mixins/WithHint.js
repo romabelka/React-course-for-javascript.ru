@@ -6,7 +6,8 @@ export default {
         return {
             x: undefined,
             y: undefined,
-            text: undefined        }
+            text: undefined
+        }
     },
     hideHint() {
         this.setState({ text: undefined })
