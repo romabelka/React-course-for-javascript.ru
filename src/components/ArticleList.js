@@ -12,7 +12,10 @@ const ArticleList = React.createClass({
     render() {
         const { articles } = this.props
         if (!articles.length) return <h3>No articles</h3>
-        const articleItems = articles.map((article) => <li key = {article.id}>
+        const articleItems = articles.map((article) => <li key = {article.id}
+                                                           onMouseOver = {this.showHint(article.title)}
+                                                           onMouseLeave = {this.hideHint}
+        >
             <Article article = {article} ref= {article.id.toString()} />
         </li>)
         return (
