@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import ArticleList from './ArticleList'
+import ArticleList from './ArticleListWithHOC'
 import linkedState from 'react-addons-linked-state-mixin'
 
 const Container = React.createClass({
