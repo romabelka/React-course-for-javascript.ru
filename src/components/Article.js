@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import CommentList from './CommentList'
 
 class Article extends Component {
     static propTypes = {
@@ -16,12 +17,12 @@ class Article extends Component {
     }
 
     render() {
-        if (!this.props.article) return <span>No article</span>
-        const { text, title } = this.props.article
-        const body = this.state.isOpen ? <section>{text}</section> : null
+        const { article } = this.props
+        if (!article) return <span>No article</span>
+        const body = this.state.isOpen ? this.getBody() : null
         return (
             <div>
-                <a href = "#" onClick = {this.handelClick}>{title}</a>
+                <a href = "#" onClick = {this.handelClick}>{article.title}</a>
                 {body}
             </div>
         )
@@ -32,6 +33,16 @@ class Article extends Component {
         this.setState({
             isOpen: !this.state.isOpen
         })
+    }
+
+    getBody() {
+        const { article } = this.props
+        return (
+            <section>
+                {article.text}
+                <CommentList comments = {article.comments} />
+            </section>
+        )
     }
 }
 
