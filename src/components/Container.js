@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import ArticleList from './ArticleListWithHOC'
 import linkedState from 'react-addons-linked-state-mixin'
-import { article } from '../stores'
+import { articles } from '../stores'
 import { addArticle } from '../actions/articleActions'
 
 const Container = React.createClass({
@@ -10,16 +10,16 @@ const Container = React.createClass({
     getInitialState: function() {
         return {
             newTitle: '',
-            articles: article.getAll()
+            articles: articles.getAll()
         };
     },
 
     componentDidMount() {
-        article.addListener(this.articlesChange)
+        articles.addListener(this.articlesChange)
     },
 
     componentWillUnmount() {
-        article.removeListener(this.articlesChange)
+        articles.removeListener(this.articlesChange)
     },
 
     render() {
@@ -34,7 +34,7 @@ const Container = React.createClass({
 
     articlesChange() {
         this.setState({
-            articles: article.getAll()
+            articles: articles.getAll()
         })
     },
 

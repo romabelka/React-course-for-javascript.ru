@@ -1,12 +1,15 @@
 import { EventEmitter } from 'events'
 import AppDispatcher from '../Dispatcher'
+import Model from './Model'
 const STORE_CHANGE_EVENT = 'STORE_CHANGE_EVENT'
 
 class Store extends EventEmitter {
-    constructor() {
+    constructor(stores, initalState) {
         super()
+        this.stores = stores
         this.__incrementalID = 999
         this.items = []
+        if (initalState) initalState.forEach(this.add.bind(this))
     }
 
     getIncrementalId() {
@@ -29,9 +32,14 @@ class Store extends EventEmitter {
         return this.items
     }
 
+    getById(id) {
+        return this.items.filter((item) => item.id == id)[0]
+    }
+
     add(item) {
-        this.items.push(item)
-        return item
+        const el = new Model(item, this)
+        this.items.push(el)
+        return el
     }
 }
 
