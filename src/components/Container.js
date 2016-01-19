@@ -1,17 +1,15 @@
 import React, { Component, PropTypes } from 'react'
 import ArticleList from './ArticleListWithHOC'
 import linkedState from 'react-addons-linked-state-mixin'
+import { article } from '../stores'
 
 const Container = React.createClass({
     mixins: [linkedState],
 
-    propTypes: {
-        articles: PropTypes.array.isRequired
-    },
-
     getInitialState: function() {
         return {
-            inputVal: ''
+            inputVal: '',
+            articles: article.getAll()
         };
     },
 
@@ -19,7 +17,7 @@ const Container = React.createClass({
         return (
             <div>
                 <input valueLink = {this.linkState("inputVal")}/>
-                <ArticleList articles = {this.props.articles} />
+                <ArticleList articles = {this.state.articles} />
             </div>
         )
     }
