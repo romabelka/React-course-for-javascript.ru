@@ -2,13 +2,14 @@ import React, { Component, PropTypes } from 'react'
 import ArticleList from './ArticleListWithHOC'
 import linkedState from 'react-addons-linked-state-mixin'
 import { article } from '../stores'
+import { addArticle } from '../actions/articleActions'
 
 const Container = React.createClass({
     mixins: [linkedState],
 
     getInitialState: function() {
         return {
-            inputVal: '',
+            newTitle: '',
             articles: article.getAll()
         };
     },
@@ -24,7 +25,8 @@ const Container = React.createClass({
     render() {
         return (
             <div>
-                <input valueLink = {this.linkState("inputVal")}/>
+                <input valueLink = {this.linkState("newTitle")}/>
+                <a href = "#" onClick = {this.addArticle}>Add new Article</a>
                 <ArticleList articles = {this.state.articles} />
             </div>
         )
@@ -33,6 +35,13 @@ const Container = React.createClass({
     articlesChange() {
         this.setState({
             articles: article.getAll()
+        })
+    },
+
+    addArticle(ev) {
+        ev.preventDefault()
+        addArticle({
+            title: this.state.newTitle
         })
     }
 })
@@ -46,14 +55,14 @@ class Container extends Component {
     constructor() {
         super()
         this.state = {
-            inputVal: ''
+            newTitle: ''
         }
     }
 
     render() {
         return (
             <div>
-                <input value = {this.state.inputVal} onChange = {this.handleChange}/>
+                <input value = {this.state.newTitle} onChange = {this.handleChange}/>
                 <ArticleList articles = {this.props.articles} />
             </div>
         )
@@ -61,7 +70,7 @@ class Container extends Component {
 
     handleChange = (ev) => {
         this.setState({
-            inputVal: ev.target.value
+            newTitle: ev.target.value
         })
     }
 }

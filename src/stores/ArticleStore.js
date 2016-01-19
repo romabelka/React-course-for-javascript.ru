@@ -6,6 +6,8 @@ const STORE_CHANGE_EVENT = 'STORE_CHANGE_EVENT'
 
 class ArticleStore extends EventEmitter {
     constructor() {
+        super()
+        this.__incrementalID = 10
         this.items = [
             {
                 title: 'My first article',
@@ -30,13 +32,18 @@ class ArticleStore extends EventEmitter {
 
             switch (type) {
                 case ADD_NEW_ARTICLE:
-                    this.add(data.article)
+                    this.add(Object.assign({
+                        id: this.getIncrementalId()
+                    },data.article))
                     break;
             }
         })
     }
 
-    AddListener(callback) {
+    getIncrementalId() {
+        return this.__incrementalID++
+    }
+    addListener(callback) {
         this.on(STORE_CHANGE_EVENT, callback)
     }
 
