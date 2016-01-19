@@ -1,4 +1,10 @@
-class ArticleStore {
+import { EventEmitter } from 'events'
+import AppDispatcher from '../Dispatcher'
+import { ADD_NEW_ARTICLE } from '../actions/constants'
+
+const STORE_CHANGE_EVENT = 'STORE_CHANGE_EVENT'
+
+class ArticleStore extends EventEmitter {
     constructor() {
         this.items = [
             {
@@ -18,6 +24,28 @@ class ArticleStore {
                 id: 2
             }
         ]
+
+        AppDispatcher.register((action) => {
+            const { type, data } = action
+
+            switch (type) {
+                case ADD_NEW_ARTICLE:
+                    this.add(data.article)
+                    break;
+            }
+        })
+    }
+
+    AddListener(callback) {
+        this.on(STORE_CHANGE_EVENT, callback)
+    }
+
+    removeListener(callback) {
+        this.removeListener(STORE_CHANGE_EVENT, callback)
+    }
+
+    emitChange() {
+        this.emit(STORE_CHANGE_EVENT)
     }
 
     getAll() {

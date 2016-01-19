@@ -13,6 +13,14 @@ const Container = React.createClass({
         };
     },
 
+    componentDidMount() {
+        article.addListener(this.articlesChange)
+    },
+
+    componentWillUnmount() {
+        article.removeListener(this.articlesChange)
+    },
+
     render() {
         return (
             <div>
@@ -20,6 +28,12 @@ const Container = React.createClass({
                 <ArticleList articles = {this.state.articles} />
             </div>
         )
+    },
+
+    articlesChange() {
+        this.setState({
+            articles: article.getAll()
+        })
     }
 })
 
