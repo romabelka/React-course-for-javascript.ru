@@ -36,6 +36,10 @@ class Store extends EventEmitter {
         return this.items.filter((item) => item.id == id)[0]
     }
 
+    delete(id) {
+        this.items = this.items.filter((item) => item.id != id)
+    }
+
     add(item) {
         const el = new Model(item, this)
         this.items.push(el)

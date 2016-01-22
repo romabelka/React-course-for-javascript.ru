@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import ToggleOpen from '../mixins/ToggleOpen'
 import linkedState from 'react-addons-linked-state-mixin'
-import {addComment} from '../actions/commentActions'
+import {addComment, deleteComment} from '../actions/commentActions'
 
 const CommentList = React.createClass({
     mixins: [ToggleOpen, linkedState],
@@ -29,7 +29,9 @@ const CommentList = React.createClass({
 
     getBody() {
         const comments = this.props.article.getRelation('comments').map((comment) => {
-            return <li key = {comment.id}>{comment.text} <b> by {comment.author}</b></li>
+            return <li key = {comment.id}>{comment.text} <b> by {comment.author}</b>
+                <a href = "#" onClick = {this.deleteComment(comment.id)} >delete</a>
+            </li>
         })
         comments.push(<li key = 'new_comment'>
             <input valueLink = {this.linkState("newComment")}/>
@@ -43,7 +45,13 @@ const CommentList = React.createClass({
     addComment(ev) {
         ev.preventDefault()
         addComment(this.props.article.id, this.state.newComment)
-        console.log('---', `adding comment: ${this.state.newComment} to ${this.props.article.id}`);
+    },
+
+    deleteComment(id) {
+        return (ev) => {
+            ev.preventDefault()
+            deleteComment(id, this.props.article.id)
+        }
     }
 });
 

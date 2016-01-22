@@ -1,7 +1,7 @@
 import AppDispatcher from '../Dispatcher'
 
 import Store from './Store'
-import { ADD_NEW_ARTICLE, ADD_NEW_COMMENT } from '../actions/constants'
+import { ADD_NEW_ARTICLE, ADD_NEW_COMMENT, DELETE_COMMENT } from '../actions/constants'
 
 
 class ArticleStore extends Store {
@@ -27,6 +27,14 @@ class ArticleStore extends Store {
                     this.getById(data.article).comments.push(comment.id)
                     this.emitChange()
                     break;
+
+                case DELETE_COMMENT:
+                    AppDispatcher.waitFor([this.stores.comments.dispatchToken])
+                    let article = this.getById(data.article)
+                    article.comments = article.comments.filter(id => id != data.id)
+                    this.emitChange()
+                    break
+
             }
         })
     }

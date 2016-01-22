@@ -1,7 +1,7 @@
 import AppDispatcher from '../Dispatcher'
 
 import Store from './Store'
-import { ADD_NEW_COMMENT } from '../actions/constants'
+import { ADD_NEW_COMMENT, DELETE_COMMENT } from '../actions/constants'
 
 class ArticleStore extends Store {
     constructor(...args) {
@@ -18,6 +18,8 @@ class ArticleStore extends Store {
                     },data))
 
                     break;
+                case DELETE_COMMENT:
+                    this.delete(data.id)
             }
         })
     }
