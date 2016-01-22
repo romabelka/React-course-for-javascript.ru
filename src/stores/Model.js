@@ -9,7 +9,8 @@ class Model {
     }
     getRelation(rel) {
         if (!Array.isArray(this[rel])) throw new Error('no such relation')
-        return this[rel].map((id) => this.getStore().stores[rel].getById(id))
+        return this[rel]
+            .map((id) => this.getStore().stores[rel].getById(id))
     }
 }
 

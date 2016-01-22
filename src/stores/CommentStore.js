@@ -1,7 +1,7 @@
 import AppDispatcher from '../Dispatcher'
 
 import Store from './Store'
-import { ADD_NEW_COMMENT, DELETE_COMMENT } from '../actions/constants'
+import { ADD_NEW_COMMENT, DELETE_COMMENT, LOAD_ARTICLES_SUCCESS } from '../actions/constants'
 
 class ArticleStore extends Store {
     constructor(...args) {
@@ -21,6 +21,16 @@ class ArticleStore extends Store {
 
                 case DELETE_COMMENT:
                     this.delete(data.id)
+                    break;
+
+                case LOAD_ARTICLES_SUCCESS:
+                    data.response.forEach((article) => {
+                        if (!article.comments) return
+                        article.comments.forEach((id) => {
+                            this.add({ id })
+                        })
+                    })
+                    this.emitChange()
                     break;
             }
         })
