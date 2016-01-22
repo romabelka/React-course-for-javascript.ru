@@ -28,20 +28,20 @@ var comments = [
         text: 'first comment',
         timeStamp: new Date(),
         user: 'oleg',
-        aid: 2
+        article: 2
     },
     {
         id: 2,
         text: 'first comment',
         timeStamp: new Date(),
         user: 'roma',
-        aid: 1
+        article: 1
     },
     {
         id: 3,
         text: 'first comment',
         timeStamp: new Date(),
-        aid: 1,
+        article: 1,
         user: 'roma'
     }
 ];

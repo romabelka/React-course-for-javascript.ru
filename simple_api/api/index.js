@@ -33,7 +33,7 @@ router.post('/article', function (req, res, next) {
 router.get('/comment', function (req, res, next) {
     var aid = req.query.article;
     var comments = aid ? mocks.comments.filter(function (comment) {
-        return comment.aid == aid
+        return comment.article == aid
     }) : mocks.comments;
 
     var limit = Number(req.query.limit) || mocks.articles.length,
@@ -47,7 +47,7 @@ router.post('/comment', function (req, res, next) {
         text : req.body.text,
         timeStamp: new Date(),
         user: req.body.user,
-        aid : req.body.aid
+        article : req.body.aid
     };
     mocks.comments.push(comment);
     res.json(comment)
@@ -57,8 +57,8 @@ module.exports = router;
 
 function withComments(articles) {
     return articles.map(function (q) {
-        q.cids = mocks.comments.filter(function (comment) {
-            return comment.aid == q.id
+        q.comments = mocks.comments.filter(function (comment) {
+            return comment.article == q.id
         }).map(function (comment) {
             return comment.id
         });
