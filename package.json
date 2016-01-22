@@ -6,7 +6,7 @@
   "scripts": {
     "build:webpack": "NODE_ENV=production webpack --config webpack.config.prod.js",
     "build": "npm run build:webpack",
-    "start": "node devServer.js",
+    "start": "concurrent --kill-others \"node devServer.js\" \"supervisor -w ./simple_api simple_api/server.js\"",
     "lint": "eslint src"
   },
   "repository": {
