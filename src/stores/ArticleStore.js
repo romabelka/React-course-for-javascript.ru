@@ -5,10 +5,12 @@ import { ADD_NEW_ARTICLE, ADD_NEW_COMMENT, DELETE_COMMENT,
     LOAD_ARTICLES_FAIL, LOAD_ARTICLES_START, LOAD_ARTICLES_SUCCESS
 } from '../actions/constants'
 
+import { loadArticles } from '../actions/articleActions'
 
 class ArticleStore extends Store {
     constructor(...args) {
         super(...args)
+        this.loaded = false
 
         this.dispatchToken = AppDispatcher.register((action) => {
             const { type, data } = action
@@ -44,12 +46,18 @@ class ArticleStore extends Store {
 
                 case LOAD_ARTICLES_SUCCESS:
                     this.loading = false
+                    this.loaded = true
                     action.data.response.forEach(this.add.bind(this))
                     this.emitChange()
                     break;
 
             }
         })
+    }
+
+    getOrLoadAll() {
+        if (!this.loading) loadArticles()
+        return this.getAll()
     }
 }
 

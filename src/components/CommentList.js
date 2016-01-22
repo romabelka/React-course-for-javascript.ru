@@ -29,6 +29,7 @@ const CommentList = React.createClass({
 
     getBody() {
         const comments = this.props.article.getRelation('comments').map((comment) => {
+            if (!comment.text) return null
             return <li key = {comment.id}>{comment.text} <b> by {comment.author}</b>
                 <a href = "#" onClick = {this.deleteComment(comment.id)} >delete</a>
             </li>
