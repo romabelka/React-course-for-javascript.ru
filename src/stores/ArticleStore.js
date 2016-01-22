@@ -56,7 +56,7 @@ class ArticleStore extends Store {
     }
 
     getOrLoadAll() {
-        if (!this.loading) loadArticles()
+        if (!this.loading && !this.loaded) loadArticles()
         return this.getAll()
     }
 }
