@@ -47,7 +47,7 @@ router.post('/comment', function (req, res, next) {
         text : req.body.text,
         timeStamp: new Date(),
         user: req.body.user,
-        article : req.body.aid
+        article : req.body.article
     };
     mocks.comments.push(comment);
     res.json(comment)
