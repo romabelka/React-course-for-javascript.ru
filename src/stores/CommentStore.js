@@ -18,8 +18,10 @@ class ArticleStore extends Store {
                     },data))
 
                     break;
+
                 case DELETE_COMMENT:
                     this.delete(data.id)
+                    break;
             }
         })
     }

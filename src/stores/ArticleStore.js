@@ -21,6 +21,7 @@ class ArticleStore extends Store {
 
                     this.emitChange()
                     break;
+
                 case ADD_NEW_COMMENT:
                     AppDispatcher.waitFor([this.stores.comments.dispatchToken])
                     const comment = this.stores.comments.getAll().slice(-1)[0]
@@ -29,7 +30,6 @@ class ArticleStore extends Store {
                     break;
 
                 case DELETE_COMMENT:
-                    AppDispatcher.waitFor([this.stores.comments.dispatchToken])
                     let article = this.getById(data.article)
                     article.comments = article.comments.filter(id => id != data.id)
                     this.emitChange()
