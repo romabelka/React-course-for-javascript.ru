@@ -1,10 +1,8 @@
-import { EventEmitter } from 'events'
 import AppDispatcher from '../Dispatcher'
 
 import Store from './Store'
-import { ADD_NEW_ARTICLE } from '../actions/constants'
+import { ADD_NEW_ARTICLE, ADD_NEW_COMMENT } from '../actions/constants'
 
-const STORE_CHANGE_EVENT = 'STORE_CHANGE_EVENT'
 
 class ArticleStore extends Store {
     constructor(...args) {
@@ -21,6 +19,12 @@ class ArticleStore extends Store {
                         text: ''
                     },data.article))
 
+                    this.emitChange()
+                    break;
+                case ADD_NEW_COMMENT:
+                    AppDispatcher.waitFor([this.stores.comments.dispatchToken])
+                    const comment = this.stores.comments.getAll().slice(-1)[0]
+                    this.getById(data.article).comments.push(comment.id)
                     this.emitChange()
                     break;
             }

@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react'
 import ToggleOpen from '../mixins/ToggleOpen'
 import linkedState from 'react-addons-linked-state-mixin'
+import {addComment} from '../actions/commentActions'
 
 const CommentList = React.createClass({
     mixins: [ToggleOpen, linkedState],
@@ -41,6 +42,7 @@ const CommentList = React.createClass({
 
     addComment(ev) {
         ev.preventDefault()
+        addComment(this.props.article.id, this.state.newComment)
         console.log('---', `adding comment: ${this.state.newComment} to ${this.props.article.id}`);
     }
 });
