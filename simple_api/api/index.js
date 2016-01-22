@@ -36,7 +36,7 @@ router.get('/comment', function (req, res, next) {
         return comment.aid == aid
     }) : mocks.comments;
 
-    var limit = Number(req.query.limit) || articles.length,
+    var limit = Number(req.query.limit) || mocks.articles.length,
         offset = Number(req.query.offset) || 0;
     res.json(comments.slice(offset, limit + offset))
 });
