@@ -29,7 +29,7 @@ class Store extends EventEmitter {
     }
 
     getAll() {
-        return this.items
+        return this.items.slice()
     }
 
     getById(id) {
