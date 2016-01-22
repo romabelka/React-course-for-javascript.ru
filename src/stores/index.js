@@ -2,6 +2,7 @@ import ArticleStore from './ArticleStore'
 import CommentStore from './CommentStore'
 import Store from './Store'
 
+/*
 const articles = [
     {
         title: 'My first article',
@@ -22,11 +23,12 @@ const comments = [
         text: 'some comment'
     }
 ]
+*/
 
 let stores = {}
 
 Object.assign(stores, {
-    articles: new ArticleStore(stores, articles),
-    comments: new CommentStore(stores, comments)
+    articles: new ArticleStore(stores),
+    comments: new CommentStore(stores)
 })
 export default stores

@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import ArticleList from './ArticleListWithHOC'
 import linkedState from 'react-addons-linked-state-mixin'
 import { articles, comments } from '../stores'
-import { addArticle } from '../actions/articleActions'
+import { addArticle, loadArticles } from '../actions/articleActions'
 
 const Container = React.createClass({
     mixins: [linkedState],
@@ -10,13 +10,15 @@ const Container = React.createClass({
     getInitialState: function() {
         return {
             newTitle: '',
-            articles: articles.getAll()
+            articles: articles.getAll(),
+            loading: articles.loading
         };
     },
 
     componentDidMount() {
         articles.addListener(this.articlesChange)
         comments.addListener(this.articlesChange)
+        if (!this.state.articles.length) loadArticles()
     },
 
     componentWillUnmount() {
@@ -25,18 +27,21 @@ const Container = React.createClass({
     },
 
     render() {
+        const { articles, loading } = this.state
+        if (loading) return <h1>LOADING...</h1>
         return (
             <div>
                 <input valueLink = {this.linkState("newTitle")}/>
                 <a href = "#" onClick = {this.addArticle}>Add new Article</a>
-                <ArticleList articles = {this.state.articles} />
+                <ArticleList articles = {articles} />
             </div>
         )
     },
 
     articlesChange() {
         this.setState({
-            articles: articles.getAll()
+            articles: articles.getAll(),
+            loading: articles.loading
         })
     },
 

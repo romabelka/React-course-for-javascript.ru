@@ -1,7 +1,9 @@
 import AppDispatcher from '../Dispatcher'
 
 import Store from './Store'
-import { ADD_NEW_ARTICLE, ADD_NEW_COMMENT, DELETE_COMMENT } from '../actions/constants'
+import { ADD_NEW_ARTICLE, ADD_NEW_COMMENT, DELETE_COMMENT,
+    LOAD_ARTICLES_FAIL, LOAD_ARTICLES_START, LOAD_ARTICLES_SUCCESS
+} from '../actions/constants'
 
 
 class ArticleStore extends Store {
@@ -34,6 +36,17 @@ class ArticleStore extends Store {
                     article.comments = article.comments.filter(id => id != data.id)
                     this.emitChange()
                     break
+
+                case LOAD_ARTICLES_START:
+                    this.loading = true
+                    this.emitChange()
+                    break;
+
+                case LOAD_ARTICLES_SUCCESS:
+                    this.loading = false
+                    action.data.response.forEach(this.add.bind(this))
+                    this.emitChange()
+                    break;
 
             }
         })
