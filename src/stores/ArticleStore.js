@@ -3,15 +3,17 @@ import AppDispatcher from '../Dispatcher'
 import Store from './Store'
 import { ADD_NEW_ARTICLE, ADD_NEW_COMMENT, DELETE_COMMENT,
     LOAD_ARTICLES_FAIL, LOAD_ARTICLES_START, LOAD_ARTICLES_SUCCESS,
+    LOAD_ARTICLE_BY_ID_FAIL, LOAD_ARTICLE_BY_ID_START, LOAD_ARTICLE_BY_ID_SUCCESS,
     LOAD_COMMENTS_START, LOAD_COMMENTS_SUCCESS, LOAD_COMMENTS_FAIL
 } from '../actions/constants'
 
-import { loadArticles } from '../actions/articleActions'
+import { loadArticles, loadArticleById } from '../actions/articleActions'
 
 class ArticleStore extends Store {
     constructor(...args) {
         super(...args)
         this.loaded = false
+        this.loadingArticles = []
 
         this.dispatchToken = AppDispatcher.register((action) => {
             const { type, data } = action
@@ -64,6 +66,16 @@ class ArticleStore extends Store {
                     this.emitChange()
                     break;
 
+                case LOAD_ARTICLE_BY_ID_START:
+                    console.log('---', 'start');
+                    this.loadingArticles.push(data.args[0])
+                    break;
+
+                case LOAD_ARTICLE_BY_ID_SUCCESS:
+                    this.add(data.response).loading = false
+                    this.emitChange()
+                    break;
+
             }
         })
     }
@@ -72,6 +84,15 @@ class ArticleStore extends Store {
         if (!this.loading && !this.loaded) loadArticles()
         return this.getAll()
     }
+
+    getOrLoadById(id) {
+        const article = this.getById(id)
+        const isLoading = this.loadingArticles.indexOf(id) >= 0
+        console.log('---', isLoading);
+        if ((!article || article.text === undefined) && !isLoading) setTimeout(() => loadArticleById(id), 0)
+        return article
+    }
+
 }
 
 export default ArticleStore

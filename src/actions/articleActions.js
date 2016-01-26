@@ -1,6 +1,6 @@
 import AppDispatcher from '../Dispatcher'
-import { ADD_NEW_ARTICLE, LOAD_ARTICLES } from './constants'
-import { loadAllArticles } from './api/article'
+import { ADD_NEW_ARTICLE, LOAD_ARTICLES, LOAD_ARTICLE_BY_ID } from './constants'
+import { loadAllArticles, loadById } from './api/article'
 import { asyncAC } from './api/utils'
 
 export function addArticle(article) {
@@ -13,3 +13,4 @@ export function addArticle(article) {
 }
 
 export const loadArticles = asyncAC(LOAD_ARTICLES, loadAllArticles)
+export const loadArticleById = asyncAC(LOAD_ARTICLE_BY_ID, loadById)
