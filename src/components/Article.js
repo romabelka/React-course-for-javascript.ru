@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import CommentList from './CommentList'
+import { articles } from '../stores'
 
 class Article extends Component {
     static propTypes = {
@@ -17,7 +18,8 @@ class Article extends Component {
     }
 
     render() {
-        return <h1>Article: </h1>
+        const article = articles.getById(this.props.params.id)
+        return <h1>Article: {article.title}</h1>
 /*
         const { article } = this.props
         if (!article) return <span>No article</span>
