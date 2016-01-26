@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import {findDOMNode} from 'react-dom'
-import Article from './Article'
 import WithHint from '../HigherOrderComponents/WithHint'
+import { Link } from 'react-router'
 
 class ArticleList extends Component {
     static propTypes = {
@@ -15,7 +15,7 @@ class ArticleList extends Component {
                                                            onMouseOver = {showHint(article.title)}
                                                            onMouseLeave = {hideHint}
         >
-            <Article article = {article} ref= {article.id.toString()} />
+            <Link to={`/articles/${article.id}`} activeClassName="active">{article.title}</Link>
         </li>)
         return (
             <div>

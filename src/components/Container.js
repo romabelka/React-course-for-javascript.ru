@@ -33,6 +33,7 @@ const Container = React.createClass({
                 <input valueLink = {this.linkState("newTitle")}/>
                 <a href = "#" onClick = {this.addArticle}>Add new Article</a>
                 <ArticleList articles = {articles} />
+                {this.props.children}
             </div>
         )
     },

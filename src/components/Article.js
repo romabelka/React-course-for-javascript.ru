@@ -17,6 +17,8 @@ class Article extends Component {
     }
 
     render() {
+        return <h1>Article: </h1>
+/*
         const { article } = this.props
         if (!article) return <span>No article</span>
         const body = this.state.isOpen ? this.getBody() : null
@@ -26,6 +28,7 @@ class Article extends Component {
                 {body}
             </div>
         )
+*/
     }
 
     handelClick = (ev) => {
