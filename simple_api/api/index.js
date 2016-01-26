@@ -37,13 +37,16 @@ router.post('/article', function (req, res, next) {
 
 router.get('/comment', function (req, res, next) {
     var aid = req.query.article;
-    var comments = aid ? mocks.comments.filter(function (comment) {
+    if (aid) return res.json(mocks.comments.filter(function (comment) {
         return comment.article == aid
-    }) : mocks.comments;
+    }))
 
-    var limit = Number(req.query.limit) || mocks.articles.length,
+    var limit = Number(req.query.limit) || mocks.comments.length,
         offset = Number(req.query.offset) || 0;
-    res.json(comments.slice(offset, limit + offset))
+    res.json({
+        total: mocks.comments.length,
+        records: mocks.comments.slice(offset, limit + offset)
+    })
 });
 
 router.post('/comment', function (req, res, next) {
