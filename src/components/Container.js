@@ -1,15 +1,10 @@
 import React, { Component, PropTypes } from 'react'
 import ArticleList from './ArticleListWithHOC'
-import linkedState from 'react-addons-linked-state-mixin'
 import { articles, comments } from '../stores'
-import { addArticle } from '../actions/articleActions'
 
 const Container = React.createClass({
-    mixins: [linkedState],
-
     getInitialState: function() {
         return {
-            newTitle: '',
             articles: articles.getOrLoadAll(),
             loading: articles.loading
         };
@@ -30,8 +25,6 @@ const Container = React.createClass({
         if (loading) return <h1>LOADING...</h1>
         return (
             <div>
-                <input valueLink = {this.linkState("newTitle")}/>
-                <a href = "#" onClick = {this.addArticle}>Add new Article</a>
                 <ArticleList articles = {articles} />
                 {this.props.children}
             </div>
@@ -42,13 +35,6 @@ const Container = React.createClass({
         this.setState({
             articles: articles.getOrLoadAll(),
             loading: articles.loading
-        })
-    },
-
-    addArticle(ev) {
-        ev.preventDefault()
-        addArticle({
-            title: this.state.newTitle
         })
     }
 })
