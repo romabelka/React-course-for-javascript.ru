@@ -32,14 +32,14 @@ var comments = [
     },
     {
         id: 2,
-        text: 'first comment',
+        text: 'second comment',
         timeStamp: new Date(),
         user: 'roma',
         article: 1
     },
     {
         id: 3,
-        text: 'first comment',
+        text: 'third comment',
         timeStamp: new Date(),
         article: 1,
         user: 'roma'

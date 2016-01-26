@@ -1,5 +1,7 @@
 import AppDispatcher from '../Dispatcher'
-import { ADD_NEW_COMMENT, DELETE_COMMENT } from './constants'
+import { ADD_NEW_COMMENT, DELETE_COMMENT, LOAD_COMMENTS } from './constants'
+import { asyncAC } from './api/utils'
+import { loadCommentsForArticle } from './api/comment'
 
 export function addComment(article, text) {
 /**
@@ -27,3 +29,4 @@ export function deleteComment(id, article) {
     })
 }
 
+export const loadComments = asyncAC(LOAD_COMMENTS, loadCommentsForArticle)

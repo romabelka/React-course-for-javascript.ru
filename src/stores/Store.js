@@ -41,7 +41,9 @@ class Store extends EventEmitter {
     }
 
     add(item) {
-        const el = new Model(item, this)
+        const old = this.getById(item.id) || {}
+        const el = new Model({...old, ...item}, this)
+        this.delete(item.id)
         this.items.push(el)
         return el
     }

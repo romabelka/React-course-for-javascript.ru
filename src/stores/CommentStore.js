@@ -1,11 +1,16 @@
 import AppDispatcher from '../Dispatcher'
 
 import Store from './Store'
-import { ADD_NEW_COMMENT, DELETE_COMMENT, LOAD_ARTICLES_SUCCESS } from '../actions/constants'
+import { ADD_NEW_COMMENT, DELETE_COMMENT, LOAD_ARTICLES_SUCCESS,
+    LOAD_COMMENTS_START, LOAD_COMMENTS_FAIL, LOAD_COMMENTS_SUCCESS
+} from '../actions/constants'
+import { loadComments } from '../actions/commentActions'
 
-class ArticleStore extends Store {
+class CommentStore extends Store {
     constructor(...args) {
         super(...args)
+        this.loading = []
+        this.loaded = []
 
         this.dispatchToken = AppDispatcher.register((action) => {
             const { type, data } = action
@@ -32,9 +37,26 @@ class ArticleStore extends Store {
                     })
                     this.emitChange()
                     break;
+
+                case LOAD_COMMENTS_START:
+                    this.loading.push(data.args[0])
+                    this.emitChange()
+                    break;
+
+                case LOAD_COMMENTS_SUCCESS:
+                    this.loading = this.loading.filter(id => id != data.args[0])
+                    this.loaded.push(data.args[0])
+                    data.response.forEach(this.add.bind(this))
+                    this.emitChange()
+                    break;
+
+                case LOAD_COMMENTS_FAIL:
+                    this.loading = this.loading.filter(id => id != data.args[0])
+                    this.emitChange()
+                    break;
             }
         })
     }
 }
 
-export default ArticleStore
+export default CommentStore
