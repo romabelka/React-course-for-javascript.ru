@@ -1,6 +1,6 @@
 import React from 'react'
+import history from './history'
 import { Router, Route, IndexRoute, IndexRedirect } from 'react-router'
-import createBrowserHistory from 'history/lib/createBrowserHistory'
 import Container from './components/Container'
 import Article from './components/Article'
 import ArticleIndex from './components/ArticleIndex'
@@ -13,7 +13,7 @@ import Login from './components/Login'
 import { users } from './stores'
 
 export default (
-    <Router history = {createBrowserHistory()}>
+    <Router history = {history}>
         <Route path="/" >
         <IndexRedirect to="/articles" />
         <Route path="/articles" component = {Container} >

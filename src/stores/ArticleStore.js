@@ -67,7 +67,6 @@ class ArticleStore extends Store {
                     break;
 
                 case LOAD_ARTICLE_BY_ID_START:
-                    console.log('---', 'start');
                     this.loadingArticles.push(data.args[0])
                     break;
 
