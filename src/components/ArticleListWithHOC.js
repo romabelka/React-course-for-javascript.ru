@@ -8,6 +8,10 @@ class ArticleList extends Component {
         articles: PropTypes.array.isRequired
     }
 
+    static contextTypes = {
+        history: PropTypes.object
+    }
+
     render() {
         const { articles, hint, showHint, hideHint } = this.props
         if (!articles.length) return <h3>No articles</h3>
@@ -15,7 +19,7 @@ class ArticleList extends Component {
                                                            onMouseOver = {showHint(article.title)}
                                                            onMouseLeave = {hideHint}
         >
-            <Link to={`/articles/${article.id}`} activeClassName="active">{article.title}</Link>
+            <h3 onClick = {this.redirect(article.id)}>{article.title}</h3>
         </li>)
         return (
             <div>
@@ -27,6 +31,12 @@ class ArticleList extends Component {
 
     componentDidMount() {
         console.log("I'm mounted")
+    }
+
+    redirect(id) {
+        return function () {
+            this.context.history.pushState(null, `/articles/${id}`)
+        }.bind(this)
     }
 }
 
