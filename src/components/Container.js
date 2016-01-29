@@ -16,8 +16,8 @@ const Container = React.createClass({
     },
 
     componentWillUnmount() {
-        articles.removeListener(this.articlesChange)
-        comments.removeListener(this.articlesChange)
+        articles.removeChangeListener(this.articlesChange)
+        comments.removeChangeListener(this.articlesChange)
     },
 
     render() {

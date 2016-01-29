@@ -17,7 +17,7 @@ class Article extends Component {
     }
 
     componentWillUnmount() {
-        articles.removeListener(this.articlesChange)
+        articles.removeChangeListener(this.articlesChange)
     }
 
     render() {

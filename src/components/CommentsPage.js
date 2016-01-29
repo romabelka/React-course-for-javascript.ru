@@ -14,7 +14,7 @@ class CommentsPage extends Component {
     }
 
     componentWillUnmount() {
-        comments.removeListener(this.changeState)
+        comments.removeChangeListener(this.changeState)
     }
 
     componentWillReceiveProps(newProps) {

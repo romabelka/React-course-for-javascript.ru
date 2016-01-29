@@ -20,7 +20,7 @@ class Store extends EventEmitter {
         this.on(STORE_CHANGE_EVENT, callback)
     }
 
-    removeListener(callback) {
+    removeChangeListener(callback) {
         this.removeListener(STORE_CHANGE_EVENT, callback)
     }
 

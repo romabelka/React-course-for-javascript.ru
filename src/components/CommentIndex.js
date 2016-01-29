@@ -15,7 +15,7 @@ class CommentIndex extends Component {
     }
 
     componentWillUnmount() {
-        comments.removeListener(this.changeState)
+        comments.removeChangeListener(this.changeState)
     }
 
     render() {
