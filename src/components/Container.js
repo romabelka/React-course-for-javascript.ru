@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import ArticleList from './ArticleListWithHOC'
-import { articles, comments } from '../stores'
+import { articles, comments, users } from '../stores'
 
 const Container = React.createClass({
     getInitialState: function() {
@@ -10,12 +10,24 @@ const Container = React.createClass({
         };
     },
 
+    childContextTypes: {
+        user: PropTypes.object
+    },
+
+    getChildContext() {
+        return {
+            user: users.getUser()
+        }
+    },
+
     componentDidMount() {
+        users.addListener(this.articlesChange)
         articles.addListener(this.articlesChange)
         comments.addListener(this.articlesChange)
     },
 
     componentWillUnmount() {
+        users.removeChangeListener(this.articlesChange)
         articles.removeChangeListener(this.articlesChange)
         comments.removeChangeListener(this.articlesChange)
     },

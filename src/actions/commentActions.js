@@ -3,7 +3,7 @@ import { ADD_NEW_COMMENT, DELETE_COMMENT, LOAD_COMMENTS, LOAD_COMMENTS_PAGE } fr
 import { asyncAC } from './api/utils'
 import { loadCommentsForArticle, loadPage } from './api/comment'
 
-export function addComment(article, text) {
+export function addComment(article, text, author) {
 /**
     common problems:
         -generating ids here on in UI
@@ -14,7 +14,8 @@ export function addComment(article, text) {
         type: ADD_NEW_COMMENT,
         data: {
             article,
-            text
+            text,
+            author
         }
     })
 }

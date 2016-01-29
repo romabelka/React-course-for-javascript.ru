@@ -5,6 +5,9 @@ import {addComment, deleteComment, loadComments} from '../actions/commentActions
 
 const CommentList = React.createClass({
     mixins: [ToggleOpen, linkedState],
+    contextTypes: {
+        user: PropTypes.object
+    },
 
     propTypes: {
         article: PropTypes.object
@@ -54,7 +57,7 @@ const CommentList = React.createClass({
 
     addComment(ev) {
         ev.preventDefault()
-        addComment(this.props.article.id, this.state.newComment)
+        addComment(this.props.article.id, this.state.newComment, this.context.user ? this.context.user.name : null)
     },
 
     deleteComment(id) {
