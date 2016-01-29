@@ -17,7 +17,7 @@ export default (
             <Route path=":id" component={Article}/>
         </Route>
         <Route path = "/comments" component = {CommentIndex} >
-            <Route path = ":id" component = {CommentsPage} />
+            <Route path = ":num" component = {CommentsPage} />
         </Route>
         <Route path = "*" component={NotFound} />
     </Router>
