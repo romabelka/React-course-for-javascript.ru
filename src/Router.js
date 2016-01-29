@@ -6,6 +6,8 @@ import Article from './components/Article'
 import ArticleIndex from './components/ArticleIndex'
 import NotFound from './components/NotFound'
 import NewArticle from './components/NewArticle'
+import CommentIndex from './components/CommentIndex'
+import CommentsPage from './components/CommentsPage'
 
 export default (
     <Router history = {createBrowserHistory()}>
@@ -13,6 +15,9 @@ export default (
             <IndexRoute component={ArticleIndex} />
             <Route path="new" component={NewArticle} />
             <Route path=":id" component={Article}/>
+        </Route>
+        <Route path = "/comments" component = {CommentIndex} >
+            <Route path = ":id" component = {CommentsPage} />
         </Route>
         <Route path = "*" component={NotFound} />
     </Router>

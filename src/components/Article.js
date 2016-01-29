@@ -29,6 +29,7 @@ class Article extends Component {
                 <section>
                     {article.text}
                 </section>
+                <CommentList article = {article} />
             </div>)
     }
     articlesChange = (newProps) => {

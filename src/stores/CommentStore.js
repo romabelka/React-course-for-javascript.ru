@@ -39,19 +39,15 @@ class CommentStore extends Store {
                     break;
 
                 case LOAD_COMMENTS_START:
-                    this.loading.push(data.args[0])
                     this.emitChange()
                     break;
 
                 case LOAD_COMMENTS_SUCCESS:
-                    this.loading = this.loading.filter(id => id != data.args[0])
-                    this.loaded.push(data.args[0])
                     data.response.forEach(this.add.bind(this))
                     this.emitChange()
                     break;
 
                 case LOAD_COMMENTS_FAIL:
-                    this.loading = this.loading.filter(id => id != data.args[0])
                     this.emitChange()
                     break;
             }
