@@ -8,6 +8,7 @@ import NotFound from './components/NotFound'
 import NewArticle from './components/NewArticle'
 import CommentIndex from './components/CommentIndex'
 import CommentsPage from './components/CommentsPage'
+import Login from './components/Login'
 
 export default (
     <Router history = {createBrowserHistory()}>
@@ -19,6 +20,7 @@ export default (
         <Route path = "/comments" component = {CommentIndex} >
             <Route path = ":num" component = {CommentsPage} />
         </Route>
+        <Route path = "/login" component = {Login} />
         <Route path = "*" component={NotFound} />
     </Router>
 )
