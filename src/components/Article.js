@@ -9,6 +9,9 @@ class Article extends Component {
             article: articles.getOrLoadById(this.props.params.id)
         }
     }
+    shouldComponentUpdate(newProps, newState) {
+        return newState.article != this.state.article
+    }
     componentWillReceiveProps(newProps) {
         this.articlesChange(newProps)
     }
