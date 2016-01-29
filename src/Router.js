@@ -1,5 +1,5 @@
 import React from 'react'
-import { Router, Route, IndexRoute } from 'react-router'
+import { Router, Route, IndexRoute, IndexRedirect } from 'react-router'
 import createBrowserHistory from 'history/lib/createBrowserHistory'
 import Container from './components/Container'
 import Article from './components/Article'
@@ -12,7 +12,10 @@ import Login from './components/Login'
 
 export default (
     <Router history = {createBrowserHistory()}>
-        <Route path="/articles" component = {Container} >
+        <Route path="/" >
+            <IndexRedirect to="/articles" />
+
+            <Route path="/articles" component = {Container} >
             <IndexRoute component={ArticleIndex} />
             <Route path="new" component={NewArticle} />
             <Route path=":id" component={Article}/>
@@ -22,5 +25,6 @@ export default (
         </Route>
         <Route path = "/login" component = {Login} />
         <Route path = "*" component={NotFound} />
+        </Route>
     </Router>
 )
