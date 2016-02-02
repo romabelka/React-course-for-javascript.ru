@@ -1,6 +1,9 @@
-import { createStore } from 'redux'
+import { createStore, applyMiddleware, compose } from 'redux'
 import reducer from '../reducer'
+import logger from '../middlewares/logger'
 
-const store = createStore(reducer)
+const store = compose(
+    applyMiddleware(logger)
+)(createStore)(reducer)
 
-export default store
+export default storea
