@@ -3,9 +3,10 @@ import AppDispatcher from '../Dispatcher'
 import Store from './Store'
 import { ADD_NEW_COMMENT, DELETE_COMMENT, LOAD_ARTICLES_SUCCESS,
     LOAD_COMMENTS_START, LOAD_COMMENTS_FAIL, LOAD_COMMENTS_SUCCESS,
+    LOAD_ALL_COMMENTS_START, LOAD_ALL_COMMENTS_FAIL, LOAD_ALL_COMMENTS_SUCCESS,
     LOAD_COMMENTS_PAGE_START, LOAD_COMMENTS_PAGE_SUCCESS, LOAD_COMMENTS_PAGE_FAIL
 } from '../actions/constants'
-import { loadComments, loadForPage } from '../actions/commentActions'
+import { loadComments, loadForPage, loadAllComments } from '../actions/commentActions'
 
 class CommentStore extends Store {
     constructor(...args) {
@@ -62,6 +63,18 @@ class CommentStore extends Store {
                     this.__totalComments = data.response.total
                     this.emitChange()
                     break;
+
+                case LOAD_ALL_COMMENTS_START:
+                    this.loading = true
+                    this.emitChange()
+                    break;
+
+                case LOAD_ALL_COMMENTS_SUCCESS:
+                    this.loading = false
+                    this.loaded = true
+                    data.response.records.forEach(this.add.bind(this))
+                    this.__totalComments = data.response.total
+                    this.emitChange()
             }
         })
     }
@@ -69,6 +82,12 @@ class CommentStore extends Store {
     getTotalComments() {
         return this.__totalComments
     }
+    getOrLoadAll() {
+        if (this.loaded) return this.getAll()
+        if (!this.loading) loadAllComments()
+        return []
+    }
+
     getOrLoadForPage(num) {
         if (!this.pages[num]) return loadForPage(num)
         return this.pages[num].map(this.getById.bind(this))

@@ -7,6 +7,7 @@ import ArticleIndex from './components/ArticleIndex'
 import NotFound from './components/NotFound'
 import NewArticle from './components/NewArticle'
 import CommentIndex from './components/CommentIndex'
+import AllComments from './components/AllComments'
 import CommentsPage from './components/CommentsPage'
 import Login from './components/Login'
 
@@ -22,7 +23,7 @@ export default (
             <Route path=":id" component={Article}/>
         </Route>
         <Route path = "/comments" component = {CommentIndex} >
-            <IndexRedirect to="1" />
+            <IndexRoute component = {AllComments} />
             <Route path = ":num" component = {CommentsPage} />
         </Route>
         <Route path = "/login" component = {Login} />
