@@ -1,6 +1,9 @@
 import React, { Component, PropTypes } from 'react'
 import CommentList from './CommentList'
 import { articles } from '../stores'
+import { isEqual, cloneDeep } from 'lodash'
+
+let cachedArticle = {}
 
 class Article extends Component {
     constructor(...args) {
@@ -9,8 +12,9 @@ class Article extends Component {
             article: articles.getOrLoadById(this.props.params.id)
         }
     }
+
     shouldComponentUpdate(newProps, newState) {
-        return newState.article != this.state.article
+        return !isEqual(cachedArticle, newState.article)
     }
     componentWillReceiveProps(newProps) {
         this.articlesChange(newProps)
@@ -21,6 +25,10 @@ class Article extends Component {
 
     componentWillUnmount() {
         articles.removeChangeListener(this.articlesChange)
+    }
+
+    componentDidUpdate() {
+        cachedArticle = cloneDeep(this.state.article)
     }
 
     render() {
