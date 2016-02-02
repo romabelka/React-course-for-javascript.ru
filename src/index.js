@@ -1,4 +1,4 @@
 import {render} from 'react-dom'
-import Router from './Router'
+import store from './store'
 
 render(Router, document.getElementById('container'))
