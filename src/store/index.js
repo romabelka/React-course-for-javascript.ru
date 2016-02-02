@@ -2,8 +2,12 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import reducer from '../reducer'
 import logger from '../middlewares/logger'
 import DevToolsContainer from '../containers/DevTools'
+import { reduxReactRouter } from 'redux-router'
+import createHistory from 'history/lib/createBrowserHistory'
+import routes from '../routes'
 
 const store = compose(
+    reduxReactRouter({ routes, createHistory }),
     applyMiddleware(logger),
     DevToolsContainer.instrument()
 )(createStore)(reducer)
