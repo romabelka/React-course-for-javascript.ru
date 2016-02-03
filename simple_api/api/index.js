@@ -61,6 +61,10 @@ router.post('/comment', function (req, res, next) {
     res.json(comment)
 });
 
+router.post('/report', function (req, res) {
+    res.json({})
+})
+
 module.exports = router;
 
 function withComments(articles) {
