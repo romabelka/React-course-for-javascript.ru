@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { loadAllArticles } from '../AC/articles'
+import { checkAndLoadAllArticles } from '../store/utils'
 
 class ArticleList extends Component {
     static propTypes = {
@@ -8,8 +8,7 @@ class ArticleList extends Component {
     };
 
     componentDidMount() {
-        const { articles, loadAllArticles } = this.props
-        if (!articles.entities.length && !articles.isLoading) loadAllArticles()
+        checkAndLoadAllArticles()
     }
 
     render() {
@@ -30,6 +29,4 @@ class ArticleList extends Component {
 export default connect((state) => {
     const { articles, router } = state
     return { articles, router }
-}, {
-    loadAllArticles
 })(ArticleList)
