@@ -2,7 +2,7 @@
 import { ADD_NEW_ARTICLE, LOAD_ALL_ARTICLES, _START, _FAIL, _SUCCESS } from '../AC/constants'
 
 export default (state = {entities: [], isLoading: false}, action) => {
-    const { type, data } = action
+    const { type, data, response, error } = action
 
     switch (type) {
         case ADD_NEW_ARTICLE:
@@ -14,6 +14,9 @@ export default (state = {entities: [], isLoading: false}, action) => {
 
         case LOAD_ALL_ARTICLES + _START:
             return Object.assign({}, state, {isLoading: true})
+
+        case LOAD_ALL_ARTICLES + _SUCCESS:
+            return {entities: response, isLoading: false}
     }
 
     return state

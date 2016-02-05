@@ -5,6 +5,14 @@ import $ from 'jquery'
 export default store => next => action => {
     const { callAPI, type, ...rest } = action
     if (!callAPI) return next(action)
-    console.log('---', {...rest, ...{type: type + _START}});
+
     next({...rest, ...{type: type + _START}})
+
+    $.get(callAPI.url)
+        .done((response) => {
+            next({...rest, ...{type: type + _SUCCESS}, response})
+        })
+        .fail((error) => {
+            next({...rest, ...{type: type + _FAIL}, error})
+        })
 }
