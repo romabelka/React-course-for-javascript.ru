@@ -13,10 +13,9 @@ class ArticleList extends Component {
 
     render() {
         const { articles } = this.props
-        if (!articles.length) return null
-        if (articles == 'loading') return <h1>Loading...</h1>
+        if (articles.isLoading) return <h1>Loading...</h1>
 
-        const articleList = articles.map((article) => {
+        const articleList = articles.entities.map((article) => {
             return <li key = {article.id} >{article.title}</li>
         })
         return (
