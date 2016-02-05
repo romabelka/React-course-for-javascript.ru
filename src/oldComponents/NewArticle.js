@@ -1,21 +1,18 @@
 import linkedState from 'react-addons-linked-state-mixin'
-import { addArticle } from '../AC/articles'
+import { addArticle } from '../actions/articleActions'
 import React from 'react'
-import { connect } from 'react-redux'
 
 const NewArticle = React.createClass({
     mixins: [linkedState],
     getInitialState() {
         return {
-            title: '',
-            text: ''
+            newTitle: ''
         }
     },
     render: function() {
         return (
             <div>
-                <input valueLink = {this.linkState("title")}/>
-                <textarea valueLink = {this.linkState('text')} type = "text"/>
+                <input valueLink = {this.linkState("newTitle")}/>
                 <a href = "#" onClick = {this.addArticle}>Add new Article</a>
             </div>
 
@@ -23,10 +20,10 @@ const NewArticle = React.createClass({
     },
     addArticle(ev) {
         ev.preventDefault()
-        this.props.addArticle(this.state)
+        addArticle({
+            title: this.state.newTitle
+        })
     }
 });
 
-export default connect(() => {return {}}, {
-    addArticle
-})(NewArticle)
+export default NewArticle

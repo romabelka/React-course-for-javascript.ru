@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import Hint from '../components/Hint'
+import Hint from '../oldComponents/Hint'
 
 export default (Component) => {
     return class WithHint extends Component {

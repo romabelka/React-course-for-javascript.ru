@@ -1,5 +1,5 @@
 import React from 'react'
-import Hint from '../components/Hint'
+import Hint from '../oldComponents/Hint'
 
 export default {
     getInitialState() {

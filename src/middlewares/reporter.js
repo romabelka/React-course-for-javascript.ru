@@ -1,5 +1,5 @@
 import $ from 'jquery'
-window.$ = $
+
 export default store => next => action => {
     const stateBefore = store.getState()
     next(action)
