@@ -8,7 +8,8 @@ class ArticleList extends Component {
     };
 
     componentDidMount() {
-        this.props.loadAllArticles()
+        const { articles, loadAllArticles } = this.props
+        if (!articles.entities.length && !articles.isLoading) loadAllArticles()
     }
 
     render() {
